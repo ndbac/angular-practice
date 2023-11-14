@@ -1,0 +1,153 @@
+<div class="todo-container">
+  <h1>Angular List</h1>
+
+  <div>
+    <form
+      *ngIf="!isEditingForm"
+      class="todo-submit-form"
+      #f="ngForm"
+      (ngSubmit)="
+        addTodo(newTodoTitle.value, newTodoDescription.value); f.resetForm()
+      "
+    >
+      <mat-form-field class="form-full-width todo-submit-title">
+        <mat-label>Todo title</mat-label>
+        <input
+          matInput
+          placeholder="Ex. Do assignment"
+          name="newTodoTitle"
+          ngModel
+          #newTodoTitle="ngModel"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-full-width">
+        <mat-label>Todo description</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex. Need to finish homework by tomorrow..."
+          name="newTodoDescription"
+          ngModel
+          #newTodoDescription="ngModel"
+        ></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="accent" [disabled]="!f.form.valid">
+        Submit
+      </button>
+    </form>
+
+    <form
+      *ngIf="isEditingForm"
+      class="todo-submit-form"
+      #f="ngForm"
+      (ngSubmit)="
+        updateTodoById(
+          selectedTodo!.id,
+          updateTodoTitle.value,
+          updateTodoDescription.value
+        );
+        f.resetForm()
+      "
+    >
+      <mat-form-field class="form-full-width todo-submit-title">
+        <mat-label>Todo title</mat-label>
+        <input
+          matInput
+          placeholder="Ex. Do assignment"
+          name="updateTodoTitle"
+          [(ngModel)]="selectedTodo!.title"
+          ngModel
+          #updateTodoTitle="ngModel"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-full-width">
+        <mat-label>Todo description</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex. Need to finish homework by tomorrow..."
+          [(ngModel)]="selectedTodo!.description"
+          name="updateTodoDescription"
+          ngModel
+          #updateTodoDescription="ngModel"
+        ></textarea>
+      </mat-form-field>
+      <div class="flex">
+        <button mat-flat-button color="accent" [disabled]="!f.form.valid">
+          Update
+        </button>
+        <button mat-flat-button color="primary" (click)="toggleFormType()">
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <div class="filter-container">
+      <mat-form-field>
+        <mat-label>Select a filter</mat-label>
+        <mat-select
+          [(ngModel)]="selectedFilter"
+          (selectionChange)="filterTodos()"
+        >
+          <mat-option *ngFor="let option of filterOptions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <ul>
+        <li *ngFor="let todo of todos">
+          <div>
+            <h4 [class.completed]="todo.completed">{{ todo.title }}</h4>
+            <div
+              [class.completed]="todo.completed"
+              *ngIf="todo.description"
+              class="description"
+            >
+              <p>{{ todo.description }}</p>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="toggleTodoById(todo.id)"
+            >
+              {{ todo.completed ? "Done" : "Todo" }}
+            </button>
+
+            <button
+              mat-flat-button
+              color="accent"
+              (click)="deleteTodoById(todo.id)"
+            >
+              Delete
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              aria-label="Example icon button with a heart icon"
+              (click)="
+                selectTodoForEdit({
+                  id: todo.id,
+                  description: todo.description,
+                  title: todo.title,
+                  completed: todo.completed
+                })
+              "
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

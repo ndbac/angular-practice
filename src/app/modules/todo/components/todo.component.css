@@ -1,0 +1,67 @@
+h1 {
+  text-align: center;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+  margin-left: 7px;
+  text-align: center;
+  align-items: center;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.description {
+  margin-top: 5px;
+  color: #555;
+  display: block;
+  white-space: pre-line;
+}
+
+.todo-container {
+  max-width: '80%';
+  margin: auto;
+  padding: 20px;
+}
+
+.todo-submit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.flex {
+  display: flex;
+  gap: 5px;
+}
